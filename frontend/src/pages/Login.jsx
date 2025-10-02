@@ -1,8 +1,8 @@
 // frontend/src/pages/Login.jsx
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import API from "../api"; // ✅ use your configured axios instance
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,17 +14,19 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
-        email,
-        password,
-      });
+      // ✅ no hardcoding, use API from api.js
+      const res = await API.post("/auth/login", { email, password });
 
       login(res.data.user, res.data.token);
 
+      // redirect based on role
       if (res.data.user.role === "citizen") {
         navigate("/dashboard");
+      } else if (res.data.user.role === "admin") {
+        navigate("/admin");
       }
     } catch (err) {
+      console.error(err.response?.data || err.message);
       setError("Invalid credentials. Please try again.");
     }
   };
@@ -70,6 +72,7 @@ export default function Login() {
     </div>
   );
 }
+
 
 
 
