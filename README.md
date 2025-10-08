@@ -1,4 +1,4 @@
-This is my Hosting link for this project:https://citizen-grievance-tracker.vercel.app/
+This is my Host link for this project:https://citizen-grievance-tracker.vercel.app/
 Running Locally:
 1.open two terminals,one for Frontend and one for Backend.
 2.on Backend terminal change Directory to "cd citizen-grievance-tracker/backend
